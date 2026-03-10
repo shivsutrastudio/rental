@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ShivSutra Properties</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<link rel="stylesheet" href="style.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body class="bg-gray-100">
+
+<!-- NAVBAR -->
+
+<nav class="bg-[#0b1a35] text-white p-4 flex justify-between items-center">
+
+<div class="flex items-center gap-3">
+
+<img src="logo.png" class="h-10">
+
+<h1 class="text-xl font-bold">
+ShivSutra Properties
+</h1>
+
+</div>
+
+<div class="flex gap-4">
+
+<button onclick="openLogin()">Login</button>
+
+<button onclick="openDashboard()">Dashboard</button>
+
+<button onclick="openAdmin()">Admin</button>
+
+</div>
+
+</nav>
+
+
+<!-- HERO SEARCH -->
+
+<section class="bg-[#122b5a] text-white text-center py-16">
+
+<h2 class="text-4xl font-bold mb-6">
+Find Your Perfect Property
+</h2>
+
+<div class="grid md:grid-cols-5 gap-3 max-w-5xl mx-auto">
+
+<input id="city" placeholder="City"
+class="p-3 text-black rounded">
+
+<input id="price" placeholder="Max Price"
+class="p-3 text-black rounded">
+
+<select id="beds" class="p-3 text-black rounded">
+
+<option value="">Bedrooms</option>
+<option value="1">1+</option>
+<option value="2">2+</option>
+<option value="3">3+</option>
+
+</select>
+
+<select id="type" class="p-3 text-black rounded">
+
+<option value="">Type</option>
+<option value="rent">Rent</option>
+<option value="buy">Buy</option>
+<option value="sale">Sale</option>
+
+</select>
+
+<button onclick="filterProperties()"
+class="bg-yellow-500 text-black rounded p-3">
+
+Search
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- PROPERTY GRID -->
+
+<section class="p-10">
+
+<h2 class="text-3xl font-bold mb-6">
+Available Properties
+</h2>
+
+<div id="propertyGrid"
+class="grid md:grid-cols-3 gap-8">
+
+</div>
+
+</section>
+
+
+<!-- PROPERTY DETAIL MODAL -->
+
+<div id="propertyModal" class="modal">
+
+<div class="modal-content">
+
+<h2 id="modalTitle"></h2>
+
+<img id="modalImage" class="w-full h-60 object-cover">
+
+<div class="flex justify-between mt-2">
+
+<button onclick="prevImage()">◀</button>
+<button onclick="nextImage()">▶</button>
+
+</div>
+
+<p id="modalLocation"></p>
+
+<p id="modalPrice"></p>
+
+<p id="modalInfo"></p>
+
+<!-- AI RECOMMENDATIONS -->
+
+<h3 class="text-lg font-bold mt-4">
+Recommended Properties
+</h3>
+
+<div id="recommendations"
+class="grid grid-cols-3 gap-3 mt-3">
+
+</div>
+
+<button onclick="closeModal()"
+class="bg-gray-700 text-white px-4 py-2 mt-3 rounded">
+
+Close
+
+</button>
+
+</div>
+
+</div>
+
+
+<!-- PROPERTY MAP -->
+
+<section class="p-10 bg-gray-50">
+
+<h2 class="text-3xl font-bold mb-6">
+Property Map
+</h2>
+
+<div id="map"
+style="height:500px;width:100%;border-radius:10px;"></div>
+
+</section>
+
+
+<!-- CHATBOT -->
+
+<div id="chatbot">
+
+<button onclick="toggleChat()" class="chat-button">
+💬
+</button>
+
+<div id="chatbox" class="chatbox">
+
+<p>Hello 👋</p>
+<p>How can I help you?</p>
+
+</div>
+
+</div>
+
+
+<!-- JAVASCRIPT FILES -->
+
+<script src="properties.js"></script>
+
+<script src="app.js"></script>
+
+<script src="ai.js"></script>
+
+<script src="auth.js"></script>
+
+<script src="admin.js"></script>
+
+<script src="firebase.js"></script>
+
+<script src="maps.js"></script>
+
+
+<!-- GOOGLE MAP API -->
+
+<script async
+src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAP_KEY&callback=initMap">
+</script>
+
+</body>
+</html>

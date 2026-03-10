@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>ShivSutra Admin Panel</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-gray-100 p-10">
+
+<h1 class="text-3xl font-bold mb-6">
+ShivSutra Admin Panel
+</h1>
+
+<form id="propertyForm" class="grid grid-cols-2 gap-4">
+
+<input id="title" placeholder="Property Title" class="p-2 border">
+
+<input id="location" placeholder="Location" class="p-2 border">
+
+<input id="price" placeholder="Price" class="p-2 border">
+
+<input id="beds" placeholder="Bedrooms" class="p-2 border">
+
+<input id="sqft" placeholder="Square Feet" class="p-2 border">
+
+<select id="type" class="p-2 border">
+
+<option value="sale">Sale</option>
+<option value="buy">Buy</option>
+<option value="rent">Rent</option>
+
+</select>
+
+<input id="lat" placeholder="Latitude" class="p-2 border">
+
+<input id="lng" placeholder="Longitude" class="p-2 border">
+
+<input id="img1" placeholder="Image URL 1" class="p-2 border">
+
+<input id="img2" placeholder="Image URL 2" class="p-2 border">
+
+<input id="img3" placeholder="Image URL 3" class="p-2 border">
+
+<button type="button"
+onclick="addProperty()"
+class="bg-indigo-600 text-white p-3 rounded">
+
+Add Property
+
+</button>
+
+</form>
+
+<script src="properties.js"></script>
+<script src="admin.js"></script>
+
+</body>
+
+</html>
