@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ShivSutra | Real Estate</title>
+<title>ShivSutra | Premium Real Estate</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -25,35 +25,56 @@ href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <nav class="bg-[#0b1a35] text-white p-4 flex justify-between items-center">
 
+<div class="flex items-center gap-3">
+
+<img src="logo.png" class="h-10">
+
 <h1 class="text-xl font-bold">
 ShivSutra
 </h1>
+
+</div>
 
 <div class="flex gap-6 items-center">
 
 <span id="userEmail" class="text-yellow-300"></span>
 
 <button id="loginBtn"
-onclick="window.location.href='login.html'">
+onclick="window.location.href='login.html'"
+class="hover:text-yellow-400">
+
 Login
+
 </button>
 
-<button onclick="window.location.href='signup.html'">
+<button onclick="window.location.href='signup.html'"
+class="hover:text-yellow-400">
+
 Signup
+
 </button>
 
 <button id="logoutBtn"
 onclick="logoutUser()"
-style="display:none;">
+style="display:none;"
+class="hover:text-yellow-400">
+
 Logout
+
 </button>
 
-<button onclick="openDashboard()">
+<button onclick="openDashboard()"
+class="hover:text-yellow-400">
+
 Dashboard
+
 </button>
 
-<button onclick="openAdmin()">
+<button onclick="openAdmin()"
+class="hover:text-yellow-400">
+
 Admin
+
 </button>
 
 </div>
@@ -64,26 +85,39 @@ Admin
 
 <section class="bg-[#122b5a] text-white text-center py-16">
 
-<h2 class="text-4xl font-bold mb-4">
+<h2 class="text-4xl font-bold mb-3">
 Find Your Perfect Property
 </h2>
 
+<p class="mb-6">
+Premium homes, villas and apartments across India
+</p>
+
+<a href="#properties"
+class="bg-yellow-500 text-black px-6 py-3 rounded font-semibold">
+
+Browse Properties
+
+</a>
+
 </section>
 
-<!-- PROPERTY LIST -->
+<!-- PROPERTY GRID -->
 
-<section class="p-10">
+<section id="properties" class="p-10">
 
 <h2 class="text-3xl font-bold mb-6 text-center">
 Available Properties
 </h2>
 
 <div id="propertyGrid"
-class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto"></div>
+class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+
+</div>
 
 </section>
 
-<!-- MAP BELOW PROPERTIES -->
+<!-- MAP SECTION -->
 
 <section class="p-10 bg-white">
 
@@ -102,7 +136,7 @@ style="height:500px;border-radius:10px"></div>
 
 <div class="modal-content">
 
-<h2 id="modalTitle"></h2>
+<h2 id="modalTitle" class="text-xl font-bold mb-2"></h2>
 
 <img id="modalImage"
 class="w-full h-60 object-cover rounded">
@@ -110,22 +144,28 @@ class="w-full h-60 object-cover rounded">
 <div class="flex justify-between mt-2">
 
 <button onclick="prevImage()">◀</button>
-
 <button onclick="nextImage()">▶</button>
 
 </div>
 
-<p id="modalLocation"></p>
-
+<p id="modalLocation" class="mt-2"></p>
 <p id="modalPrice"></p>
-
 <p id="modalInfo"></p>
+
+<!-- ENQUIRY BUTTON -->
 
 <a id="whatsappBtn"
 target="_blank"
 class="bg-green-500 text-white px-4 py-2 rounded mt-3 inline-block">
 
 WhatsApp Enquiry
+
+</a>
+
+<a href="mailto:shivsutrastudio@gmail.com"
+class="bg-blue-600 text-white px-4 py-2 rounded mt-3 inline-block">
+
+Email Enquiry
 
 </a>
 
@@ -154,12 +194,60 @@ Close
 
 </div>
 
+<!-- ABOUT SECTION -->
+
+<section class="bg-white p-12">
+
+<h2 class="text-3xl font-bold mb-4 text-center">
+About ShivSutra
+</h2>
+
+<p class="max-w-4xl mx-auto text-center mb-4">
+
+ShivSutra, run by the Dhapta family in Shimla, is committed to delivering
+premium real estate experiences across India. Our mission is to help people
+discover homes that match their lifestyle — from luxury villas and hill
+cottages to modern apartments in growing cities.
+
+</p>
+
+<p class="max-w-4xl mx-auto text-center mb-4">
+
+We are committed to ensuring digital accessibility for individuals with
+disabilities and continuously improving our web experience for everyone.
+
+</p>
+
+<p class="text-center">
+
+For enquiries contact us at  
+<b>shivsutrastudio@gmail.com</b>
+
+</p>
+
+</section>
+
 <!-- FOOTER -->
 
 <footer class="bg-[#0b1a35] text-white p-8 text-center">
 
-<p>
-© 2026 ShivSutra Studio
+<img src="logo.png" class="h-10 mx-auto mb-3">
+
+<p class="font-semibold">
+ShivSutra Real Estate
+</p>
+
+<p class="mt-2">
+
+© 2026 ShivSutra Studio. All rights reserved.
+
+</p>
+
+<p class="text-sm mt-2">
+
+Unauthorized copying or reproduction of this website's concept,
+design or content is prohibited.
+
 </p>
 
 </footer>
@@ -168,27 +256,11 @@ Close
 
 <script src="properties.js"></script>
 <script src="app.js"></script>
-<script src="maps.js"></script>
 <script src="ai.js"></script>
+<script src="maps.js"></script>
 <script src="admin.js"></script>
 
 <script type="module" src="firebase.js"></script>
-
-<script>
-
-document.addEventListener("DOMContentLoaded",function(){
-
-if(typeof displayProperties==="function"){
-displayProperties(properties)
-}
-
-if(typeof initMap==="function"){
-initMap()
-}
-
-})
-
-</script>
 
 </body>
 </html>

@@ -15,11 +15,11 @@ function addProperty(){
 
 let title=document.getElementById("title").value
 let location=document.getElementById("location").value
-let img1=document.getElementById("img1").value
+let img=document.getElementById("img1").value
 
-if(!title || !location || !img1){
+if(!title||!location||!img){
 
-alert("Title, Location and Image required")
+alert("Title, location and image required")
 
 return
 
@@ -28,7 +28,6 @@ return
 let newProperty={
 
 id:properties.length+1,
-
 title:title,
 location:location,
 price:5000000,
@@ -38,7 +37,7 @@ type:"sale",
 
 coords:{lat:31.1048,lng:77.1734},
 
-images:[img1]
+images:[img]
 
 }
 

@@ -1,19 +1,17 @@
 function recommendProperties(property){
 
-let recommendations = properties.filter(p =>
+let rec=properties.filter(p=>
 
-p.id !== property.id &&
+p.id!==property.id &&
 (
-p.location === property.location ||
-Math.abs(p.price - property.price) <= 3000000 ||
-p.beds === property.beds
+p.location===property.location ||
+p.beds===property.beds ||
+Math.abs(p.price-property.price)<=3000000
 )
 
-)
+).slice(0,3)
 
-.slice(0,3)
-
-showRecommendations(recommendations)
+showRecommendations(rec)
 
 }
 
@@ -29,19 +27,15 @@ list.forEach(p=>{
 
 container.innerHTML+=`
 
-<div class="bg-white shadow rounded p-3">
+<div class="bg-white shadow rounded p-2">
 
 <img src="${p.images[0]}"
-class="w-full h-28 object-cover rounded">
+class="h-20 w-full object-cover rounded">
 
-<h4 class="font-semibold mt-2">${p.title}</h4>
-
-<p class="text-sm">${p.location}</p>
-
-<p class="text-indigo-600">₹${p.price}</p>
+<p class="text-sm">${p.title}</p>
 
 <button onclick="openProperty(${p.id})"
-class="bg-indigo-600 text-white px-2 py-1 mt-2 rounded text-sm">
+class="text-indigo-600 text-sm">
 
 View
 

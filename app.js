@@ -1,22 +1,22 @@
-let sliderImages = []
-let currentIndex = 0
-let currentProperty = null
+let sliderImages=[]
+let currentIndex=0
+let currentProperty=null
 
-let saved = JSON.parse(localStorage.getItem("saved_properties")) || []
+let saved=JSON.parse(localStorage.getItem("saved_properties"))||[]
 
 function displayProperties(list){
 
-const grid = document.getElementById("propertyGrid")
+const grid=document.getElementById("propertyGrid")
 
 if(!grid) return
 
-grid.innerHTML = ""
+grid.innerHTML=""
 
-list.forEach(p => {
+list.forEach(p=>{
 
-grid.innerHTML += `
+grid.innerHTML+=`
 
-<div class="bg-white shadow rounded overflow-hidden hover:shadow-lg transition">
+<div class="bg-white shadow rounded overflow-hidden">
 
 <img src="${p.images[0]}"
 class="h-48 w-full object-cover cursor-pointer"
@@ -30,18 +30,14 @@ onclick="openProperty(${p.id})">
 
 <p class="text-indigo-600 font-semibold">₹${p.price}</p>
 
-<p class="text-sm">${p.beds} Beds • ${p.sqft} sqft</p>
-
-<div class="flex gap-2 mt-3">
+<p>${p.beds} Beds • ${p.sqft} sqft</p>
 
 <button onclick="openProperty(${p.id})"
-class="bg-indigo-600 text-white px-3 py-1 rounded">
+class="bg-indigo-600 text-white px-3 py-1 rounded mt-2">
 
 View
 
 </button>
-
-</div>
 
 </div>
 
@@ -55,27 +51,23 @@ View
 
 function openProperty(id){
 
-const p = properties.find(x => x.id === id)
+const p=properties.find(x=>x.id===id)
 
-if(!p) return
+currentProperty=id
+sliderImages=p.images
+currentIndex=0
 
-currentProperty = id
+document.getElementById("modalTitle").innerText=p.title
+document.getElementById("modalLocation").innerText=p.location
+document.getElementById("modalPrice").innerText="₹"+p.price
+document.getElementById("modalInfo").innerText=p.beds+" Beds • "+p.sqft+" sqft
 
-sliderImages = p.images
-currentIndex = 0
+document.getElementById("modalImage").src=sliderImages[0]
 
-document.getElementById("modalTitle").innerText = p.title
-document.getElementById("modalLocation").innerText = p.location
-document.getElementById("modalPrice").innerText = "₹" + p.price
-document.getElementById("modalInfo").innerText =
-p.beds + " Beds • " + p.sqft + " sqft"
+document.getElementById("whatsappBtn").href=
+"https://wa.me/919999999999?text=Interested in "+p.title
 
-document.getElementById("modalImage").src = sliderImages[0]
-
-document.getElementById("whatsappBtn").href =
-"https://wa.me/919999999999?text=I am interested in " + p.title
-
-document.getElementById("propertyModal").style.display = "flex"
+document.getElementById("propertyModal").style.display="flex"
 
 recommendProperties(p)
 
@@ -83,28 +75,23 @@ recommendProperties(p)
 
 function nextImage(){
 
-currentIndex = (currentIndex + 1) % sliderImages.length
-
-document.getElementById("modalImage").src = sliderImages[currentIndex]
+currentIndex=(currentIndex+1)%sliderImages.length
+document.getElementById("modalImage").src=sliderImages[currentIndex]
 
 }
 
 function prevImage(){
 
-currentIndex =
-(currentIndex - 1 + sliderImages.length) % sliderImages.length
-
-document.getElementById("modalImage").src = sliderImages[currentIndex]
+currentIndex=(currentIndex-1+sliderImages.length)%sliderImages.length
+document.getElementById("modalImage").src=sliderImages[currentIndex]
 
 }
 
 function closeModal(){
 
-document.getElementById("propertyModal").style.display = "none"
+document.getElementById("propertyModal").style.display="none"
 
 }
-
-// SAVE PROPERTY
 
 function saveProperty(id){
 
@@ -112,7 +99,7 @@ if(!saved.includes(id)){
 
 saved.push(id)
 
-localStorage.setItem("saved_properties", JSON.stringify(saved))
+localStorage.setItem("saved_properties",JSON.stringify(saved))
 
 alert("Property saved")
 
@@ -120,52 +107,7 @@ alert("Property saved")
 
 }
 
-// AI STYLE RECOMMENDATIONS
-
-function recommendProperties(property){
-
-const container = document.getElementById("recommendations")
-
-if(!container) return
-
-container.innerHTML = ""
-
-const rec = properties.filter(p =>
-
-p.id !== property.id &&
-(p.location === property.location || p.beds === property.beds)
-
-).slice(0,3)
-
-rec.forEach(p => {
-
-container.innerHTML += `
-
-<div class="bg-white shadow rounded p-2">
-
-<img src="${p.images[0]}"
-class="h-20 w-full object-cover rounded">
-
-<p class="text-sm mt-1">${p.title}</p>
-
-<button onclick="openProperty(${p.id})"
-class="text-indigo-600 text-sm">
-
-View
-
-</button>
-
-</div>
-
-`
-
-})
-
-}
-
-// INITIAL LOAD
-
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded",function(){
 
 displayProperties(properties)
 
