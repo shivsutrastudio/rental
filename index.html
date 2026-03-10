@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ShivSutra Properties</title>
+<title>ShivSutra Studio | Premium Real Estate</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
@@ -14,6 +14,11 @@
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
 
 </head>
 
@@ -25,42 +30,45 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 
 <div class="flex items-center gap-3">
 
-<img src="logo.png" class="h-10">
+<img src="logo.png" class="h-12">
 
 <h1 class="text-xl font-bold">
-ShivSutra Properties
+ShivSutra Studio
 </h1>
 
 </div>
 
-<div class="flex gap-4">
+<div class="flex gap-6 items-center">
 
-<button onclick="openLogin()">Login</button>
+<button onclick="openLogin()" class="hover:text-yellow-400">Login</button>
 
-<button onclick="openDashboard()">Dashboard</button>
+<button onclick="openSignup()" class="hover:text-yellow-400">Signup</button>
 
-<button onclick="openAdmin()">Admin</button>
+<button onclick="openDashboard()" class="hover:text-yellow-400">Dashboard</button>
+
+<button onclick="openAdmin()" class="hover:text-yellow-400">Admin</button>
 
 </div>
 
 </nav>
 
+<!-- HERO -->
 
-<!-- HERO SEARCH -->
+<section class="bg-[#122b5a] text-white text-center py-20">
 
-<section class="bg-[#122b5a] text-white text-center py-16">
-
-<h2 class="text-4xl font-bold mb-6">
+<h2 class="text-5xl font-bold mb-6">
 Find Your Perfect Property
 </h2>
 
+<p class="mb-10">
+Premium real estate listings powered by ShivSutra
+</p>
+
 <div class="grid md:grid-cols-5 gap-3 max-w-5xl mx-auto">
 
-<input id="city" placeholder="City"
-class="p-3 text-black rounded">
+<input id="city" placeholder="City" class="p-3 text-black rounded">
 
-<input id="price" placeholder="Max Price"
-class="p-3 text-black rounded">
+<input id="price" placeholder="Max Price" class="p-3 text-black rounded">
 
 <select id="beds" class="p-3 text-black rounded">
 
@@ -80,19 +88,15 @@ class="p-3 text-black rounded">
 
 </select>
 
-<button onclick="filterProperties()"
-class="bg-yellow-500 text-black rounded p-3">
-
+<button onclick="filterProperties()" class="bg-yellow-500 text-black rounded p-3">
 Search
-
 </button>
 
 </div>
 
 </section>
 
-
-<!-- PROPERTY GRID -->
+<!-- PROPERTY LIST + MAP -->
 
 <section class="p-10">
 
@@ -100,50 +104,72 @@ Search
 Available Properties
 </h2>
 
-<div id="propertyGrid"
-class="grid md:grid-cols-3 gap-8">
+<div class="grid lg:grid-cols-2 gap-6">
+
+<div class="bg-white shadow rounded overflow-hidden">
+<div id="map" style="height:650px;width:100%"></div>
+</div>
+
+<div>
+<div id="propertyGrid" class="grid md:grid-cols-2 gap-6"></div>
+</div>
 
 </div>
 
 </section>
 
-
-<!-- PROPERTY DETAIL MODAL -->
+<!-- PROPERTY MODAL -->
 
 <div id="propertyModal" class="modal">
 
 <div class="modal-content">
 
-<h2 id="modalTitle"></h2>
+<h2 id="modalTitle" class="text-xl font-bold mb-2"></h2>
 
-<img id="modalImage" class="w-full h-60 object-cover">
+<img id="modalImage" class="w-full h-60 object-cover rounded">
 
-<div class="flex justify-between mt-2">
+<div class="flex justify-between mt-3">
 
-<button onclick="prevImage()">◀</button>
-<button onclick="nextImage()">▶</button>
+<button onclick="prevImage()" class="bg-gray-200 px-3 py-1 rounded">◀</button>
+
+<button onclick="nextImage()" class="bg-gray-200 px-3 py-1 rounded">▶</button>
 
 </div>
 
-<p id="modalLocation"></p>
+<p id="modalLocation" class="mt-3"></p>
 
-<p id="modalPrice"></p>
+<p id="modalPrice" class="text-indigo-600 font-semibold"></p>
 
 <p id="modalInfo"></p>
 
-<!-- AI RECOMMENDATIONS -->
+<div class="flex gap-3 mt-4">
 
-<h3 class="text-lg font-bold mt-4">
+<a id="whatsappBtn"
+target="_blank"
+class="bg-green-500 text-white px-4 py-2 rounded">
+
+WhatsApp Enquiry
+
+</a>
+
+<button onclick="saveProperty(currentProperty)"
+class="bg-yellow-500 text-black px-4 py-2 rounded">
+
+Save Property
+
+</button>
+
+</div>
+
+<h3 class="text-lg font-bold mt-6">
 Recommended Properties
 </h3>
 
 <div id="recommendations"
-class="grid grid-cols-3 gap-3 mt-3">
-
-</div>
+class="grid grid-cols-3 gap-3 mt-3"></div>
 
 <button onclick="closeModal()"
-class="bg-gray-700 text-white px-4 py-2 mt-3 rounded">
+class="bg-gray-700 text-white px-4 py-2 mt-4 rounded">
 
 Close
 
@@ -153,60 +179,119 @@ Close
 
 </div>
 
+<!-- LOGIN MODAL -->
 
-<!-- PROPERTY MAP -->
+<div id="loginModal" class="modal">
 
-<section class="p-10 bg-gray-50">
+<div class="modal-content">
 
-<h2 class="text-3xl font-bold mb-6">
-Property Map
-</h2>
+<h2 class="text-xl font-bold mb-4">Login</h2>
 
-<div id="map"
-style="height:500px;width:100%;border-radius:10px;"></div>
+<input id="loginEmail" placeholder="Email"
+class="border p-2 w-full mb-3">
+
+<input id="loginPass" type="password"
+placeholder="Password"
+class="border p-2 w-full mb-3">
+
+<button onclick="loginUser()"
+class="bg-indigo-600 text-white px-4 py-2 rounded w-full">
+
+Sign In
+
+</button>
+
+<button onclick="closeLogin()" class="mt-3 text-gray-500">
+Close
+</button>
+
+</div>
+
+</div>
+
+<!-- SIGNUP MODAL -->
+
+<div id="signupModal" class="modal">
+
+<div class="modal-content">
+
+<h2 class="text-xl font-bold mb-4">Signup</h2>
+
+<input id="signupEmail" placeholder="Email"
+class="border p-2 w-full mb-3">
+
+<input id="signupPass" type="password"
+placeholder="Password"
+class="border p-2 w-full mb-3">
+
+<button onclick="signupUser()"
+class="bg-indigo-600 text-white px-4 py-2 rounded w-full">
+
+Create Account
+
+</button>
+
+<button onclick="closeSignup()" class="mt-3 text-gray-500">
+Close
+</button>
+
+</div>
+
+</div>
+
+<!-- ABOUT -->
+
+<section class="bg-white p-10">
+
+<h2 class="text-3xl font-bold mb-4">About ShivSutra</h2>
+
+<p>
+ShivSutra runned by Dhapta family and located in Shimla.
+We are committed to ensuring digital accessibility for individuals with disabilities.
+</p>
+
+<p class="mt-3">
+Contact: shivsutrastudio@gmail.com
+</p>
 
 </section>
 
+<!-- FOOTER -->
 
-<!-- CHATBOT -->
+<footer class="bg-[#0b1a35] text-white p-8 text-center">
 
-<div id="chatbot">
+<img src="logo.png" class="h-12 mx-auto mb-4">
 
-<button onclick="toggleChat()" class="chat-button">
-💬
-</button>
+<p class="text-lg font-semibold">
+ShivSutra Studio
+</p>
 
-<div id="chatbox" class="chatbox">
+<p class="mt-2">
+© 2026 ShivSutra Studio. All rights reserved.
+</p>
 
-<p>Hello 👋</p>
-<p>How can I help you?</p>
+</footer>
 
-</div>
-
-</div>
-
-
-<!-- JAVASCRIPT FILES -->
+<!-- JS -->
 
 <script src="properties.js"></script>
-
 <script src="app.js"></script>
-
 <script src="ai.js"></script>
-
 <script src="auth.js"></script>
-
 <script src="admin.js"></script>
-
 <script src="firebase.js"></script>
-
 <script src="maps.js"></script>
 
+<script>
 
-<!-- GOOGLE MAP API -->
+document.addEventListener("DOMContentLoaded",function(){
 
-<script async
-src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAP_KEY&callback=initMap">
+if(typeof initMap==="function"){
+initMap()
+}
+
+})
+
 </script>
 
 </body>

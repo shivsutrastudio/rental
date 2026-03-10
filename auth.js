@@ -1,67 +1,85 @@
-// USER LOGIN SYSTEM
+// LOGIN MODAL
 
 function openLogin(){
+document.getElementById("loginModal").style.display="flex"
+}
 
-let email=prompt("Enter Email")
+function closeLogin(){
+document.getElementById("loginModal").style.display="none"
+}
 
-if(!email){
-alert("Login cancelled")
+// SIGNUP MODAL
+
+function openSignup(){
+document.getElementById("signupModal").style.display="flex"
+}
+
+function closeSignup(){
+document.getElementById("signupModal").style.display="none"
+}
+
+// SIGNUP USER
+
+function signupUser(){
+
+let email=document.getElementById("signupEmail").value
+let pass=document.getElementById("signupPass").value
+
+if(!email || !pass){
+alert("Fill all fields")
 return
 }
 
-localStorage.setItem("user",email)
+localStorage.setItem("user_"+email,pass)
 
-alert("Login successful")
+alert("Account created")
+
+closeSignup()
 
 }
 
+// LOGIN USER
 
+function loginUser(){
 
-// DASHBOARD ACCESS
+let email=document.getElementById("loginEmail").value
+let pass=document.getElementById("loginPass").value
+
+let savedPass=localStorage.getItem("user_"+email)
+
+if(savedPass===pass){
+
+localStorage.setItem("loggedUser",email)
+
+alert("Login successful")
+
+closeLogin()
+
+}
+
+else{
+
+alert("Invalid credentials")
+
+}
+
+}
+
+// DASHBOARD
 
 function openDashboard(){
 
-let user=localStorage.getItem("user")
+let user=localStorage.getItem("loggedUser")
 
 if(!user){
 
 alert("Please login first")
+
+openLogin()
+
 return
-
 }
 
-window.location.href="dashboard.html"
-
-}
-
-
-
-// LOGOUT
-
-function logout(){
-
-localStorage.removeItem("user")
-
-alert("Logged out")
-
-}
-
-
-
-// SAVE PROPERTY SYSTEM
-
-function saveProperty(id){
-
-let saved=JSON.parse(localStorage.getItem("saved_properties"))||[]
-
-if(!saved.includes(id)){
-
-saved.push(id)
-
-}
-
-localStorage.setItem("saved_properties",JSON.stringify(saved))
-
-alert("Property saved")
+alert("Welcome "+user)
 
 }

@@ -1,15 +1,17 @@
-let map
+let map;
 
 function initMap(){
 
-map = new google.maps.Map(
-document.getElementById("map"),
-{
-center:{lat:20.5937,lng:78.9629},
-zoom:5
-})
+map = L.map('map').setView([20.5937,78.9629],5);
 
-loadPropertyMarkers()
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+maxZoom:19,
+attribution:'© OpenStreetMap'
+}).addTo(map);
+
+if(typeof properties !== "undefined"){
+loadPropertyMarkers();
+}
 
 }
 
@@ -17,17 +19,12 @@ function loadPropertyMarkers(){
 
 properties.forEach(property=>{
 
-const marker = new google.maps.Marker({
+const marker = L.marker([
+property.coords.lat,
+property.coords.lng
+]).addTo(map);
 
-position:property.coords,
-map:map,
-title:property.title
-
-})
-
-const info = new google.maps.InfoWindow({
-
-content:`
+const popup = `
 
 <div style="width:200px">
 
@@ -51,16 +48,12 @@ View
 
 </div>
 
-`
+`;
 
-})
+marker.bindPopup(popup);
 
-marker.addListener("click",()=>{
-
-info.open(map,marker)
-
-})
-
-})
+});
 
 }
+
+document.addEventListener("DOMContentLoaded",initMap);

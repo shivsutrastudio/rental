@@ -1,8 +1,8 @@
 let sliderImages=[]
 let currentIndex=0
+let currentProperty=null
 
-let favorites=JSON.parse(localStorage.getItem("favorites"))||[]
-let compareList=[]
+let saved=JSON.parse(localStorage.getItem("saved_properties"))||[]
 
 function displayProperties(list){
 
@@ -12,13 +12,13 @@ grid.innerHTML=""
 
 list.forEach(p=>{
 
-const fav=favorites.includes(p.id)
-
 grid.innerHTML+=`
 
 <div class="bg-white shadow rounded overflow-hidden">
 
-<img src="${p.images[0]}" class="h-48 w-full object-cover">
+<img src="${p.images[0]}"
+class="h-48 w-full object-cover cursor-pointer"
+onclick="openProperty(${p.id})">
 
 <div class="p-4">
 
@@ -34,19 +34,8 @@ grid.innerHTML+=`
 
 <button onclick="openProperty(${p.id})"
 class="bg-indigo-600 text-white px-3 py-1 rounded">
+
 View
-</button>
-
-<button onclick="toggleFavorite(${p.id})">
-
-<i class="fa-${fav?'solid':'regular'} fa-heart text-red-500"></i>
-
-</button>
-
-<button onclick="addCompare(${p.id})"
-class="text-sm text-gray-600">
-
-Compare
 
 </button>
 
@@ -66,6 +55,8 @@ function openProperty(id){
 
 const p=properties.find(x=>x.id===id)
 
+currentProperty=id
+
 sliderImages=p.images
 currentIndex=0
 
@@ -76,8 +67,8 @@ document.getElementById("modalInfo").innerText=p.beds+" Beds • "+p.sqft+" sqft
 
 document.getElementById("modalImage").src=sliderImages[0]
 
-document.getElementById("mapFrame").src=
-"https://maps.google.com/maps?q="+p.location+"&output=embed"
+document.getElementById("whatsappBtn").href=
+"https://wa.me/919999999999?text=I am interested in "+p.title
 
 document.getElementById("propertyModal").style.display="flex"
 
@@ -107,77 +98,60 @@ document.getElementById("propertyModal").style.display="none"
 
 }
 
-function toggleFavorite(id){
+// SAVE PROPERTY
 
-if(favorites.includes(id))
-favorites=favorites.filter(x=>x!==id)
-else
-favorites.push(id)
+function saveProperty(id){
 
-localStorage.setItem("favorites",JSON.stringify(favorites))
+if(!saved.includes(id)){
 
-displayProperties(properties)
+saved.push(id)
 
-}
+localStorage.setItem("saved_properties",JSON.stringify(saved))
 
-function addCompare(id){
-
-if(!compareList.includes(id))
-compareList.push(id)
-
-if(compareList.length==2){
-
-const p1=properties.find(p=>p.id===compareList[0])
-const p2=properties.find(p=>p.id===compareList[1])
-
-alert(
-
-"Property Comparison\n\n"+
-
-p1.title+" ₹"+p1.price+"\n"+
-p2.title+" ₹"+p2.price
-
-)
-
-compareList=[]
+alert("Property saved")
 
 }
 
 }
 
-function filterProperties(){
-
-let city=document.getElementById("city").value.toLowerCase()
-let price=document.getElementById("price").value
-let beds=document.getElementById("beds").value
-let type=document.getElementById("type").value
-
-let filtered=properties.filter(p=>{
-
-return(
-(!city||p.location.toLowerCase().includes(city)) &&
-(!price||p.price<=price) &&
-(!beds||p.beds>=beds) &&
-(!type||p.type===type)
-
-)
-
-})
-
-displayProperties(filtered)
-
-}
+// AI RECOMMENDATIONS
 
 function recommendProperties(property){
 
+const container=document.getElementById("recommendations")
+
+container.innerHTML=""
+
 const rec=properties.filter(p=>
 
-p.location===property.location &&
-p.id!==property.id
+p.id!==property.id &&
+(p.location===property.location || p.beds===property.beds)
 
 ).slice(0,3)
 
-console.log("Recommended:",rec)
+rec.forEach(p=>{
+
+container.innerHTML+=`
+
+<div class="bg-white shadow rounded p-2">
+
+<img src="${p.images[0]}"
+class="h-20 w-full object-cover">
+
+<p class="text-sm">${p.title}</p>
+
+<button onclick="openProperty(${p.id})"
+class="text-indigo-600 text-sm">
+
+View
+
+</button>
+
+</div>
+
+`
+
+})
 
 }
 
