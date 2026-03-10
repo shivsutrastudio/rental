@@ -1,20 +1,22 @@
-let sliderImages=[]
-let currentIndex=0
-let currentProperty=null
+let sliderImages = []
+let currentIndex = 0
+let currentProperty = null
 
-let saved=JSON.parse(localStorage.getItem("saved_properties"))||[]
+let saved = JSON.parse(localStorage.getItem("saved_properties")) || []
 
 function displayProperties(list){
 
-const grid=document.getElementById("propertyGrid")
+const grid = document.getElementById("propertyGrid")
 
-grid.innerHTML=""
+if(!grid) return
 
-list.forEach(p=>{
+grid.innerHTML = ""
 
-grid.innerHTML+=`
+list.forEach(p => {
 
-<div class="bg-white shadow rounded overflow-hidden">
+grid.innerHTML += `
+
+<div class="bg-white shadow rounded overflow-hidden hover:shadow-lg transition">
 
 <img src="${p.images[0]}"
 class="h-48 w-full object-cover cursor-pointer"
@@ -28,7 +30,7 @@ onclick="openProperty(${p.id})">
 
 <p class="text-indigo-600 font-semibold">₹${p.price}</p>
 
-<p>${p.beds} Beds • ${p.sqft} sqft</p>
+<p class="text-sm">${p.beds} Beds • ${p.sqft} sqft</p>
 
 <div class="flex gap-2 mt-3">
 
@@ -53,24 +55,27 @@ View
 
 function openProperty(id){
 
-const p=properties.find(x=>x.id===id)
+const p = properties.find(x => x.id === id)
 
-currentProperty=id
+if(!p) return
 
-sliderImages=p.images
-currentIndex=0
+currentProperty = id
 
-document.getElementById("modalTitle").innerText=p.title
-document.getElementById("modalLocation").innerText=p.location
-document.getElementById("modalPrice").innerText="₹"+p.price
-document.getElementById("modalInfo").innerText=p.beds+" Beds • "+p.sqft+" sqft"
+sliderImages = p.images
+currentIndex = 0
 
-document.getElementById("modalImage").src=sliderImages[0]
+document.getElementById("modalTitle").innerText = p.title
+document.getElementById("modalLocation").innerText = p.location
+document.getElementById("modalPrice").innerText = "₹" + p.price
+document.getElementById("modalInfo").innerText =
+p.beds + " Beds • " + p.sqft + " sqft"
 
-document.getElementById("whatsappBtn").href=
-"https://wa.me/919999999999?text=I am interested in "+p.title
+document.getElementById("modalImage").src = sliderImages[0]
 
-document.getElementById("propertyModal").style.display="flex"
+document.getElementById("whatsappBtn").href =
+"https://wa.me/919999999999?text=I am interested in " + p.title
+
+document.getElementById("propertyModal").style.display = "flex"
 
 recommendProperties(p)
 
@@ -78,23 +83,24 @@ recommendProperties(p)
 
 function nextImage(){
 
-currentIndex=(currentIndex+1)%sliderImages.length
+currentIndex = (currentIndex + 1) % sliderImages.length
 
-document.getElementById("modalImage").src=sliderImages[currentIndex]
+document.getElementById("modalImage").src = sliderImages[currentIndex]
 
 }
 
 function prevImage(){
 
-currentIndex=(currentIndex-1+sliderImages.length)%sliderImages.length
+currentIndex =
+(currentIndex - 1 + sliderImages.length) % sliderImages.length
 
-document.getElementById("modalImage").src=sliderImages[currentIndex]
+document.getElementById("modalImage").src = sliderImages[currentIndex]
 
 }
 
 function closeModal(){
 
-document.getElementById("propertyModal").style.display="none"
+document.getElementById("propertyModal").style.display = "none"
 
 }
 
@@ -106,7 +112,7 @@ if(!saved.includes(id)){
 
 saved.push(id)
 
-localStorage.setItem("saved_properties",JSON.stringify(saved))
+localStorage.setItem("saved_properties", JSON.stringify(saved))
 
 alert("Property saved")
 
@@ -114,31 +120,33 @@ alert("Property saved")
 
 }
 
-// AI RECOMMENDATIONS
+// AI STYLE RECOMMENDATIONS
 
 function recommendProperties(property){
 
-const container=document.getElementById("recommendations")
+const container = document.getElementById("recommendations")
 
-container.innerHTML=""
+if(!container) return
 
-const rec=properties.filter(p=>
+container.innerHTML = ""
 
-p.id!==property.id &&
-(p.location===property.location || p.beds===property.beds)
+const rec = properties.filter(p =>
+
+p.id !== property.id &&
+(p.location === property.location || p.beds === property.beds)
 
 ).slice(0,3)
 
-rec.forEach(p=>{
+rec.forEach(p => {
 
-container.innerHTML+=`
+container.innerHTML += `
 
 <div class="bg-white shadow rounded p-2">
 
 <img src="${p.images[0]}"
-class="h-20 w-full object-cover">
+class="h-20 w-full object-cover rounded">
 
-<p class="text-sm">${p.title}</p>
+<p class="text-sm mt-1">${p.title}</p>
 
 <button onclick="openProperty(${p.id})"
 class="text-indigo-600 text-sm">
@@ -155,4 +163,10 @@ View
 
 }
 
+// INITIAL LOAD
+
+document.addEventListener("DOMContentLoaded", function(){
+
 displayProperties(properties)
+
+})

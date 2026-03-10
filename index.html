@@ -6,14 +6,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ShivSutra Studio | Premium Real Estate</title>
+<title>ShivSutra | Real Estate</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 <link rel="stylesheet" href="style.css">
-
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <link rel="stylesheet"
 href="https://unpkg.com/leaflet/dist/leaflet.css"/>
@@ -28,25 +25,36 @@ href="https://unpkg.com/leaflet/dist/leaflet.css"/>
 
 <nav class="bg-[#0b1a35] text-white p-4 flex justify-between items-center">
 
-<div class="flex items-center gap-3">
-
-<img src="logo.png" class="h-12">
-
 <h1 class="text-xl font-bold">
-ShivSutra Studio
+ShivSutra
 </h1>
-
-</div>
 
 <div class="flex gap-6 items-center">
 
-<button onclick="openLogin()" class="hover:text-yellow-400">Login</button>
+<span id="userEmail" class="text-yellow-300"></span>
 
-<button onclick="openSignup()" class="hover:text-yellow-400">Signup</button>
+<button id="loginBtn"
+onclick="window.location.href='login.html'">
+Login
+</button>
 
-<button onclick="openDashboard()" class="hover:text-yellow-400">Dashboard</button>
+<button onclick="window.location.href='signup.html'">
+Signup
+</button>
 
-<button onclick="openAdmin()" class="hover:text-yellow-400">Admin</button>
+<button id="logoutBtn"
+onclick="logoutUser()"
+style="display:none;">
+Logout
+</button>
+
+<button onclick="openDashboard()">
+Dashboard
+</button>
+
+<button onclick="openAdmin()">
+Admin
+</button>
 
 </div>
 
@@ -54,67 +62,37 @@ ShivSutra Studio
 
 <!-- HERO -->
 
-<section class="bg-[#122b5a] text-white text-center py-20">
+<section class="bg-[#122b5a] text-white text-center py-16">
 
-<h2 class="text-5xl font-bold mb-6">
+<h2 class="text-4xl font-bold mb-4">
 Find Your Perfect Property
 </h2>
 
-<p class="mb-10">
-Premium real estate listings powered by ShivSutra
-</p>
-
-<div class="grid md:grid-cols-5 gap-3 max-w-5xl mx-auto">
-
-<input id="city" placeholder="City" class="p-3 text-black rounded">
-
-<input id="price" placeholder="Max Price" class="p-3 text-black rounded">
-
-<select id="beds" class="p-3 text-black rounded">
-
-<option value="">Bedrooms</option>
-<option value="1">1+</option>
-<option value="2">2+</option>
-<option value="3">3+</option>
-
-</select>
-
-<select id="type" class="p-3 text-black rounded">
-
-<option value="">Type</option>
-<option value="rent">Rent</option>
-<option value="buy">Buy</option>
-<option value="sale">Sale</option>
-
-</select>
-
-<button onclick="filterProperties()" class="bg-yellow-500 text-black rounded p-3">
-Search
-</button>
-
-</div>
-
 </section>
 
-<!-- PROPERTY LIST + MAP -->
+<!-- PROPERTY LIST -->
 
 <section class="p-10">
 
-<h2 class="text-3xl font-bold mb-6">
+<h2 class="text-3xl font-bold mb-6 text-center">
 Available Properties
 </h2>
 
-<div class="grid lg:grid-cols-2 gap-6">
+<div id="propertyGrid"
+class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto"></div>
 
-<div class="bg-white shadow rounded overflow-hidden">
-<div id="map" style="height:650px;width:100%"></div>
-</div>
+</section>
 
-<div>
-<div id="propertyGrid" class="grid md:grid-cols-2 gap-6"></div>
-</div>
+<!-- MAP BELOW PROPERTIES -->
 
-</div>
+<section class="p-10 bg-white">
+
+<h2 class="text-3xl font-bold mb-6 text-center">
+Property Locations
+</h2>
+
+<div id="map"
+style="height:500px;border-radius:10px"></div>
 
 </section>
 
@@ -124,52 +102,49 @@ Available Properties
 
 <div class="modal-content">
 
-<h2 id="modalTitle" class="text-xl font-bold mb-2"></h2>
+<h2 id="modalTitle"></h2>
 
-<img id="modalImage" class="w-full h-60 object-cover rounded">
+<img id="modalImage"
+class="w-full h-60 object-cover rounded">
 
-<div class="flex justify-between mt-3">
+<div class="flex justify-between mt-2">
 
-<button onclick="prevImage()" class="bg-gray-200 px-3 py-1 rounded">◀</button>
+<button onclick="prevImage()">◀</button>
 
-<button onclick="nextImage()" class="bg-gray-200 px-3 py-1 rounded">▶</button>
+<button onclick="nextImage()">▶</button>
 
 </div>
 
-<p id="modalLocation" class="mt-3"></p>
+<p id="modalLocation"></p>
 
-<p id="modalPrice" class="text-indigo-600 font-semibold"></p>
+<p id="modalPrice"></p>
 
 <p id="modalInfo"></p>
 
-<div class="flex gap-3 mt-4">
-
 <a id="whatsappBtn"
 target="_blank"
-class="bg-green-500 text-white px-4 py-2 rounded">
+class="bg-green-500 text-white px-4 py-2 rounded mt-3 inline-block">
 
 WhatsApp Enquiry
 
 </a>
 
 <button onclick="saveProperty(currentProperty)"
-class="bg-yellow-500 text-black px-4 py-2 rounded">
+class="bg-yellow-500 text-black px-4 py-2 rounded mt-2">
 
 Save Property
 
 </button>
 
-</div>
-
-<h3 class="text-lg font-bold mt-6">
+<h3 class="text-lg font-bold mt-4">
 Recommended Properties
 </h3>
 
 <div id="recommendations"
-class="grid grid-cols-3 gap-3 mt-3"></div>
+class="grid grid-cols-3 gap-3 mt-2"></div>
 
 <button onclick="closeModal()"
-class="bg-gray-700 text-white px-4 py-2 mt-4 rounded">
+class="bg-gray-700 text-white px-4 py-2 mt-3 rounded">
 
 Close
 
@@ -178,113 +153,34 @@ Close
 </div>
 
 </div>
-
-<!-- LOGIN MODAL -->
-
-<div id="loginModal" class="modal">
-
-<div class="modal-content">
-
-<h2 class="text-xl font-bold mb-4">Login</h2>
-
-<input id="loginEmail" placeholder="Email"
-class="border p-2 w-full mb-3">
-
-<input id="loginPass" type="password"
-placeholder="Password"
-class="border p-2 w-full mb-3">
-
-<button onclick="loginUser()"
-class="bg-indigo-600 text-white px-4 py-2 rounded w-full">
-
-Sign In
-
-</button>
-
-<button onclick="closeLogin()" class="mt-3 text-gray-500">
-Close
-</button>
-
-</div>
-
-</div>
-
-<!-- SIGNUP MODAL -->
-
-<div id="signupModal" class="modal">
-
-<div class="modal-content">
-
-<h2 class="text-xl font-bold mb-4">Signup</h2>
-
-<input id="signupEmail" placeholder="Email"
-class="border p-2 w-full mb-3">
-
-<input id="signupPass" type="password"
-placeholder="Password"
-class="border p-2 w-full mb-3">
-
-<button onclick="signupUser()"
-class="bg-indigo-600 text-white px-4 py-2 rounded w-full">
-
-Create Account
-
-</button>
-
-<button onclick="closeSignup()" class="mt-3 text-gray-500">
-Close
-</button>
-
-</div>
-
-</div>
-
-<!-- ABOUT -->
-
-<section class="bg-white p-10">
-
-<h2 class="text-3xl font-bold mb-4">About ShivSutra</h2>
-
-<p>
-ShivSutra runned by Dhapta family and located in Shimla.
-We are committed to ensuring digital accessibility for individuals with disabilities.
-</p>
-
-<p class="mt-3">
-Contact: shivsutrastudio@gmail.com
-</p>
-
-</section>
 
 <!-- FOOTER -->
 
 <footer class="bg-[#0b1a35] text-white p-8 text-center">
 
-<img src="logo.png" class="h-12 mx-auto mb-4">
-
-<p class="text-lg font-semibold">
-ShivSutra Studio
-</p>
-
-<p class="mt-2">
-© 2026 ShivSutra Studio. All rights reserved.
+<p>
+© 2026 ShivSutra Studio
 </p>
 
 </footer>
 
-<!-- JS -->
+<!-- JS FILES -->
 
 <script src="properties.js"></script>
 <script src="app.js"></script>
-<script src="ai.js"></script>
-<script src="auth.js"></script>
-<script src="admin.js"></script>
-<script src="firebase.js"></script>
 <script src="maps.js"></script>
+<script src="ai.js"></script>
+<script src="admin.js"></script>
+
+<script type="module" src="firebase.js"></script>
 
 <script>
 
 document.addEventListener("DOMContentLoaded",function(){
+
+if(typeof displayProperties==="function"){
+displayProperties(properties)
+}
 
 if(typeof initMap==="function"){
 initMap()

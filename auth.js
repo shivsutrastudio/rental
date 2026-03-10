@@ -1,5 +1,3 @@
-// LOGIN MODAL
-
 function openLogin(){
 document.getElementById("loginModal").style.display="flex"
 }
@@ -8,8 +6,6 @@ function closeLogin(){
 document.getElementById("loginModal").style.display="none"
 }
 
-// SIGNUP MODAL
-
 function openSignup(){
 document.getElementById("signupModal").style.display="flex"
 }
@@ -17,8 +13,6 @@ document.getElementById("signupModal").style.display="flex"
 function closeSignup(){
 document.getElementById("signupModal").style.display="none"
 }
-
-// SIGNUP USER
 
 function signupUser(){
 
@@ -37,8 +31,6 @@ alert("Account created")
 closeSignup()
 
 }
-
-// LOGIN USER
 
 function loginUser(){
 
@@ -65,8 +57,6 @@ alert("Invalid credentials")
 
 }
 
-// DASHBOARD
-
 function openDashboard(){
 
 let user=localStorage.getItem("loggedUser")
@@ -80,6 +70,6 @@ openLogin()
 return
 }
 
-alert("Welcome "+user)
+window.location.href="dashboard.html"
 
 }

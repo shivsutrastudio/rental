@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>ShivSutra Admin Panel</title>
 
@@ -11,23 +14,25 @@
 
 <body class="bg-gray-100 p-10">
 
-<h1 class="text-3xl font-bold mb-6">
+<div class="max-w-4xl mx-auto bg-white p-8 rounded shadow">
+
+<h1 class="text-3xl font-bold mb-6 text-center">
 ShivSutra Admin Panel
 </h1>
 
 <form id="propertyForm" class="grid grid-cols-2 gap-4">
 
-<input id="title" placeholder="Property Title" class="p-2 border">
+<input id="title" placeholder="Property Title" class="p-2 border rounded">
 
-<input id="location" placeholder="Location" class="p-2 border">
+<input id="location" placeholder="Location" class="p-2 border rounded">
 
-<input id="price" placeholder="Price" class="p-2 border">
+<input id="price" placeholder="Price" class="p-2 border rounded">
 
-<input id="beds" placeholder="Bedrooms" class="p-2 border">
+<input id="beds" placeholder="Bedrooms" class="p-2 border rounded">
 
-<input id="sqft" placeholder="Square Feet" class="p-2 border">
+<input id="sqft" placeholder="Square Feet" class="p-2 border rounded">
 
-<select id="type" class="p-2 border">
+<select id="type" class="p-2 border rounded">
 
 <option value="sale">Sale</option>
 <option value="buy">Buy</option>
@@ -35,25 +40,28 @@ ShivSutra Admin Panel
 
 </select>
 
-<input id="lat" placeholder="Latitude" class="p-2 border">
+<input id="lat" placeholder="Latitude" class="p-2 border rounded">
 
-<input id="lng" placeholder="Longitude" class="p-2 border">
+<input id="lng" placeholder="Longitude" class="p-2 border rounded">
 
-<input id="img1" placeholder="Image URL 1" class="p-2 border">
+<input id="img1" placeholder="Image URL 1 (Required)" class="p-2 border rounded col-span-2">
 
-<input id="img2" placeholder="Image URL 2" class="p-2 border">
+<input id="img2" placeholder="Image URL 2" class="p-2 border rounded col-span-2">
 
-<input id="img3" placeholder="Image URL 3" class="p-2 border">
+<input id="img3" placeholder="Image URL 3" class="p-2 border rounded col-span-2">
 
-<button type="button"
+<button
+type="button"
 onclick="addProperty()"
-class="bg-indigo-600 text-white p-3 rounded">
+class="bg-indigo-600 text-white p-3 rounded col-span-2 hover:bg-indigo-700">
 
 Add Property
 
 </button>
 
 </form>
+
+</div>
 
 <script src="properties.js"></script>
 <script src="admin.js"></script>

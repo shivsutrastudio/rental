@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Signup | ShivSutra</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center h-screen">
+
+<div class="bg-white p-10 rounded shadow w-96">
+
+<h2 class="text-2xl font-bold mb-6 text-center">
+Create Account
+</h2>
+
+<input id="signupEmail"
+type="email"
+placeholder="Email"
+class="border p-3 w-full mb-3 rounded">
+
+<input id="signupPass"
+type="password"
+placeholder="Password"
+class="border p-3 w-full mb-4 rounded">
+
+<button onclick="signupUser()"
+class="bg-indigo-600 text-white w-full p-3 rounded hover:bg-indigo-700">
+
+Signup
+
+</button>
+
+<p class="text-center mt-4">
+
+Already have account?
+
+<a href="login.html" class="text-indigo-600 hover:underline">
+Login
+</a>
+
+</p>
+
+</div>
+
+<script src="auth.js"></script>
+
+<script>
+
+function signupUser(){
+
+let email=document.getElementById("signupEmail").value.trim()
+let pass=document.getElementById("signupPass").value.trim()
+
+if(!email || !pass){
+
+alert("Please enter email and password")
+
+return
+
+}
+
+localStorage.setItem("user_"+email,pass)
+
+alert("Account created successfully")
+
+window.location.href="login.html"
+
+}
+
+</script>
+
+</body>
+</html>
