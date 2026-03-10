@@ -16,16 +16,7 @@ list.forEach(p=>{
 
 grid.innerHTML+=`
 
-<div class="bg-white rounded shadow overflow-hidden relative">
-
-<span class="absolute top-2 left-2 bg-black text-white px-2 py-1 text-sm">
-₹${p.price}
-</span>
-
-<button onclick="saveProperty(${p.id})"
-class="absolute top-2 right-2 text-white text-xl">
-❤
-</button>
+<div class="bg-white rounded shadow overflow-hidden">
 
 <img src="${p.images[0]}"
 class="h-48 w-full object-cover cursor-pointer"
@@ -35,11 +26,11 @@ onclick="openProperty(${p.id})">
 
 <h3 class="font-bold">${p.title}</h3>
 
-<p class="text-gray-500">${p.location}</p>
+<p>${p.location}</p>
 
-<p class="text-sm">
-${p.beds} Beds • ${p.sqft} sqft
-</p>
+<p>₹${p.price}</p>
+
+<p>${p.beds} Beds • ${p.sqft} sqft</p>
 
 <button onclick="openProperty(${p.id})"
 class="bg-indigo-600 text-white px-3 py-1 mt-2 rounded">
@@ -123,20 +114,10 @@ alert("Saved to favorites")
 function filterProperties(){
 
 let city=document.getElementById("city").value.toLowerCase()
-let price=parseInt(document.getElementById("price").value)
-let beds=document.getElementById("beds").value
-let type=document.getElementById("type").value
 
-let filtered=properties.filter(p=>{
-
-return(
-(!city || p.location.toLowerCase().includes(city)) &&
-(!price || p.price<=price) &&
-(!beds || p.beds>=beds) &&
-(!type || p.type===type)
+let filtered=properties.filter(p=>
+p.location.toLowerCase().includes(city)
 )
-
-})
 
 displayProperties(filtered)
 
