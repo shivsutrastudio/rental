@@ -35,100 +35,100 @@ ShivSutra
 
 </div>
 
-<div class="flex gap-6 items-center">
+<div class="flex gap-5 items-center">
 
-<span id="userEmail" class="text-yellow-300"></span>
-
-<button id="loginBtn"
-onclick="window.location.href='login.html'"
-class="hover:text-yellow-400">
-
-Login
-
-</button>
+<button onclick="window.location.href='login.html'"
+class="hover:text-yellow-400">Login</button>
 
 <button onclick="window.location.href='signup.html'"
-class="hover:text-yellow-400">
-
-Signup
-
-</button>
-
-<button id="logoutBtn"
-onclick="logoutUser()"
-style="display:none;"
-class="hover:text-yellow-400">
-
-Logout
-
-</button>
+class="hover:text-yellow-400">Signup</button>
 
 <button onclick="openDashboard()"
-class="hover:text-yellow-400">
-
-Dashboard
-
-</button>
+class="hover:text-yellow-400">Dashboard</button>
 
 <button onclick="openAdmin()"
-class="hover:text-yellow-400">
-
-Admin
-
-</button>
+class="hover:text-yellow-400">Admin</button>
 
 </div>
 
 </nav>
 
-<!-- HERO -->
+
+<!-- HERO SEARCH -->
 
 <section class="bg-[#122b5a] text-white text-center py-16">
 
-<h2 class="text-4xl font-bold mb-3">
+<h2 class="text-4xl font-bold mb-6">
 Find Your Perfect Property
 </h2>
 
-<p class="mb-6">
-Premium homes, villas and apartments across India
-</p>
+<div class="grid md:grid-cols-5 gap-3 max-w-6xl mx-auto">
 
-<a href="#properties"
-class="bg-yellow-500 text-black px-6 py-3 rounded font-semibold">
+<input id="city"
+placeholder="City"
+class="p-3 text-black rounded">
 
-Browse Properties
+<input id="price"
+placeholder="Max Price"
+class="p-3 text-black rounded">
 
-</a>
+<select id="beds"
+class="p-3 text-black rounded">
 
-</section>
+<option value="">Bedrooms</option>
+<option value="1">1+</option>
+<option value="2">2+</option>
+<option value="3">3+</option>
+<option value="4">4+</option>
 
-<!-- PROPERTY GRID -->
+</select>
 
-<section id="properties" class="p-10">
+<select id="type"
+class="p-3 text-black rounded">
 
-<h2 class="text-3xl font-bold mb-6 text-center">
-Available Properties
-</h2>
+<option value="">Type</option>
+<option value="rent">Rent</option>
+<option value="buy">Buy</option>
+<option value="sale">Sale</option>
 
-<div id="propertyGrid"
-class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+</select>
+
+<button onclick="filterProperties()"
+class="bg-yellow-500 text-black rounded p-3">
+
+Search
+
+</button>
 
 </div>
 
 </section>
 
-<!-- MAP SECTION -->
 
-<section class="p-10 bg-white">
+<!-- PROPERTY + MAP LAYOUT -->
 
-<h2 class="text-3xl font-bold mb-6 text-center">
-Property Locations
+<section class="grid lg:grid-cols-2 gap-6 p-6">
+
+<div>
+
+<h2 class="text-2xl font-bold mb-4">
+Available Properties
 </h2>
 
+<div id="propertyGrid"
+class="grid md:grid-cols-2 gap-6"></div>
+
+</div>
+
+<div>
+
 <div id="map"
-style="height:500px;border-radius:10px"></div>
+class="w-full h-[650px] rounded shadow"></div>
+
+</div>
 
 </section>
+
 
 <!-- PROPERTY MODAL -->
 
@@ -136,7 +136,8 @@ style="height:500px;border-radius:10px"></div>
 
 <div class="modal-content">
 
-<h2 id="modalTitle" class="text-xl font-bold mb-2"></h2>
+<h2 id="modalTitle"
+class="text-xl font-bold mb-2"></h2>
 
 <img id="modalImage"
 class="w-full h-60 object-cover rounded">
@@ -148,35 +149,34 @@ class="w-full h-60 object-cover rounded">
 
 </div>
 
-<p id="modalLocation" class="mt-2"></p>
-<p id="modalPrice"></p>
+<p id="modalLocation"></p>
+
+<p id="modalPrice"
+class="text-indigo-600 font-semibold"></p>
+
 <p id="modalInfo"></p>
 
-<!-- ENQUIRY BUTTON -->
+<div class="flex gap-3 mt-3">
 
 <a id="whatsappBtn"
 target="_blank"
-class="bg-green-500 text-white px-4 py-2 rounded mt-3 inline-block">
-
-WhatsApp Enquiry
-
+class="bg-green-500 text-white px-4 py-2 rounded">
+WhatsApp
 </a>
 
 <a href="mailto:shivsutrastudio@gmail.com"
-class="bg-blue-600 text-white px-4 py-2 rounded mt-3 inline-block">
-
-Email Enquiry
-
+class="bg-blue-600 text-white px-4 py-2 rounded">
+Email
 </a>
 
 <button onclick="saveProperty(currentProperty)"
-class="bg-yellow-500 text-black px-4 py-2 rounded mt-2">
-
-Save Property
-
+class="bg-yellow-500 px-4 py-2 rounded">
+Save
 </button>
 
-<h3 class="text-lg font-bold mt-4">
+</div>
+
+<h3 class="mt-4 font-bold">
 Recommended Properties
 </h3>
 
@@ -185,74 +185,52 @@ class="grid grid-cols-3 gap-3 mt-2"></div>
 
 <button onclick="closeModal()"
 class="bg-gray-700 text-white px-4 py-2 mt-3 rounded">
-
 Close
-
 </button>
 
 </div>
 
 </div>
 
-<!-- ABOUT SECTION -->
+
+<!-- ABOUT -->
 
 <section class="bg-white p-12">
 
-<h2 class="text-3xl font-bold mb-4 text-center">
+<h2 class="text-3xl font-bold text-center mb-4">
 About ShivSutra
 </h2>
 
 <p class="max-w-4xl mx-auto text-center mb-4">
 
-ShivSutra, run by the Dhapta family in Shimla, is committed to delivering
-premium real estate experiences across India. Our mission is to help people
-discover homes that match their lifestyle — from luxury villas and hill
-cottages to modern apartments in growing cities.
-
-</p>
-
-<p class="max-w-4xl mx-auto text-center mb-4">
-
-We are committed to ensuring digital accessibility for individuals with
-disabilities and continuously improving our web experience for everyone.
+ShivSutra, run by the Dhapta family in Shimla,
+connects buyers and renters with premium real
+estate listings across India.
 
 </p>
 
 <p class="text-center">
-
-For enquiries contact us at  
-<b>shivsutrastudio@gmail.com</b>
-
+Contact: <b>shivsutrastudio@gmail.com</b>
 </p>
 
 </section>
+
 
 <!-- FOOTER -->
 
 <footer class="bg-[#0b1a35] text-white p-8 text-center">
 
-<img src="logo.png" class="h-10 mx-auto mb-3">
+<img src="logo.png"
+class="h-10 mx-auto mb-3">
 
-<p class="font-semibold">
-ShivSutra Real Estate
-</p>
-
-<p class="mt-2">
-
-© 2026 ShivSutra Studio. All rights reserved.
-
-</p>
-
-<p class="text-sm mt-2">
-
-Unauthorized copying or reproduction of this website's concept,
-design or content is prohibited.
-
+<p>
+© 2026 ShivSutra Studio
 </p>
 
 </footer>
 
-<!-- JS FILES -->
+
+<!-- SCRIPTS -->
 
 <script src="properties.js"></script>
 <script src="app.js"></script>
@@ -261,6 +239,22 @@ design or content is prohibited.
 <script src="admin.js"></script>
 
 <script type="module" src="firebase.js"></script>
+
+<script>
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+if(window.properties && typeof displayProperties==="function"){
+displayProperties(properties)
+}
+
+if(typeof initMap==="function"){
+setTimeout(initMap,100)
+}
+
+})
+
+</script>
 
 </body>
 </html>

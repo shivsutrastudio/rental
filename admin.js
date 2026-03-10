@@ -1,10 +1,12 @@
 function openAdmin(){
 
-let pass=prompt("Admin password")
+let pass=prompt("Enter admin password")
 
 if(pass!=="shivadmin"){
+
 alert("Access denied")
 return
+
 }
 
 window.location.href="admin.html"
@@ -17,10 +19,9 @@ let title=document.getElementById("title").value
 let location=document.getElementById("location").value
 let img=document.getElementById("img1").value
 
-if(!title||!location||!img){
+if(!title || !location || !img){
 
 alert("Title, location and image required")
-
 return
 
 }
@@ -35,7 +36,10 @@ beds:3,
 sqft:1500,
 type:"sale",
 
-coords:{lat:31.1048,lng:77.1734},
+coords:{
+lat:31.1048,
+lng:77.1734
+},
 
 images:[img]
 
@@ -43,6 +47,10 @@ images:[img]
 
 properties.push(newProperty)
 
-alert("Property added")
+alert("Property added successfully")
+
+document.getElementById("title").value=""
+document.getElementById("location").value=""
+document.getElementById("img1").value=""
 
 }

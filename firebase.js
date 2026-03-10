@@ -1,5 +1,5 @@
 import { initializeApp } from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"
 
 import {
 getAuth,
@@ -7,16 +7,18 @@ createUserWithEmailAndPassword,
 signInWithEmailAndPassword,
 signOut
 } from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"
 
 const firebaseConfig = {
+
 apiKey:"AIzaSyAkG5_0MAesDRi6paXsefDpw6WCyyIcXVs",
 authDomain:"retail-cb7b9.firebaseapp.com",
 projectId:"retail-cb7b9",
 storageBucket:"retail-cb7b9.firebasestorage.app",
 messagingSenderId:"1070740472515",
 appId:"1:1070740472515:web:37a239305afa6acf5dd876"
-};
+
+}
 
 const app=initializeApp(firebaseConfig)
 const auth=getAuth(app)

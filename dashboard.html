@@ -1,42 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-<title>User Dashboard</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard | ShivSutra</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 
 </head>
 
-<body class="bg-gray-100 p-10">
+<body class="bg-gray-100">
+
+<div class="max-w-6xl mx-auto p-10">
 
 <h1 class="text-3xl font-bold mb-6">
-Saved Properties
+User Dashboard
 </h1>
 
+<h2 class="text-xl mb-4">
+Saved Properties
+</h2>
+
 <div id="savedGrid"
-class="grid md:grid-cols-3 gap-6"></div>
+class="grid md:grid-cols-3 gap-6">
+
+</div>
+
+</div>
+
+<script src="properties.js"></script>
 
 <script>
 
-let saved=JSON.parse(localStorage.getItem("saved_properties"))||[]
+let saved = JSON.parse(localStorage.getItem("saved_properties")) || []
 
-let grid=document.getElementById("savedGrid")
+const grid=document.getElementById("savedGrid")
 
 saved.forEach(id=>{
 
 let p=properties.find(x=>x.id===id)
 
+if(!p) return
+
 grid.innerHTML+=`
 
-<div class="bg-white shadow rounded p-4">
+<div class="bg-white rounded shadow overflow-hidden">
 
-<img src="${p.images[0]}" class="h-40 w-full object-cover">
+<img src="${p.images[0]}"
+class="h-40 w-full object-cover">
+
+<div class="p-3">
 
 <h3 class="font-bold">${p.title}</h3>
 
 <p>${p.location}</p>
+
+<p>₹${p.price}</p>
+
+</div>
 
 </div>
 
